@@ -34,7 +34,7 @@ app.layout = html.Div(children=[
                     , n_clicks=0,
                     style={'background-color': 'red', 'color': 'white','margin-left': '5px','verticalAlign': 'center','horizontalAlign': 'center'}
                     )
-                , html.Div(id='status', children="")
+                , html.Div(id='status', children="You have not clicked once, Come on, try it!")
                 , html.Br()
             ])
         # , html.Div([html.Label("Sentiment Analysis Results")
