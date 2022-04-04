@@ -1,0 +1,43 @@
+{
+    "_type": "news",
+    "didUMean": "",
+    "totalCount": 25,
+    "relatedSearch": [],
+    "value": [
+        {
+            "id": "2038646232225956412",
+            "title": "Russia-Ukraine war news: Live updates",
+            "url": "-ukraine-war-news-putin-live-updates/",
+            "description": "U.S. Secretary of State Antony Blinken vowed to use every tool available to pursue those responsible for apparent atrocities in Ukraine.",
+            "body": "Sources: Institute for the Study of War, AEI's Critical Threats Project, Post reporting\nKyiv region:\nThe departure of Moscows troops from around the capital has revealed alleged atrocities in nearby towns, sparking a global outcry. Video verified by The Washington Post showed bodies on the streets of Bucha, a suburb northwest of Kyiv. Journalists and Ukrainian officials said the hands of some corpses had been bound.\nDonbas region:\nMoscows forces are moving their focus from the capital to the south and east, setting the stage for a new phase in the conflict that military analysts warn could be long and bloody.\nMariupol:\nThe Red Cross said Sunday that it had not reached this hard-hit port city, where as many as 100,000 people remain trapped after weeks of heavy fighting. The city has long been a strategic target for Moscow because it had provided a land corridor to Russian-occupied Crimea. It continues to face intense, indiscriminate strikes, according to Britains Defense Ministry, which said Ukrainian forces retain control of central areas.\nMykolaiv:\nMissile strikes were reported Sunday in this southern port city that has been on the front lines of Ukraines fight against Russian artillery. A Russian missile hit the regional administration building last week, killing at least 36 people, according to local authorities.\nOdessa:\nExplosions rocked Odessa early Sunday as Russia said its missiles struck an oil refinery and fuel storage facilities, sending thick dark plumes of smoke into the sky in the first major strikes on the strategic Black Sea port citys downtown.\nAnnabelle Chapman and Jon Gerberg contributed to this report.\nAdvertisement",
+            "snippet": "U.<b>S</b>.\n<b>S</b>ecretary of <b>S</b>tate Antony Blinken vowed to use every tool available to pursue those responsible for apparent atrocities in Ukraine.",
+            "keywords": "",
+            "language": "en",
+            "isSafe": true,
+            "datePublished": "2022-04-04T05:02:19.093",
+            "provider": {
+                "name": "washingtonpost",
+                "favIcon": "",
+                "favIconBase64Encoding": ""
+            },
+            "image": {
+                "url": "-apps/imrs.php?src=-03-2022/t_8996f2bcd98543009f42800b6c7cc915_name_0f0918c0_b38b_11ec_8358_20aa16355fb4_scaled.jpg&amp;w=1440",
+                "height": 0,
+                "width": 0,
+                "thumbnail": "",
+                "thumbnailHeight": 0,
+                "thumbnailWidth": 0,
+                "base64Encoding": "",
+                "name": null,
+                "title": null,
+                "provider": {
+                    "name": "washingtonpost",
+                    "favIcon": "",
+                    "favIconBase64Encoding": ""
+                },
+                "imageWebSearchUrl": null,
+                "webpageUrl": "-ukraine-war-news-putin-live-updates/"
+            }
+        }
+    ]
+}
