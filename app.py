@@ -1,20 +1,17 @@
-import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output, State
-from dash.exceptions import PreventUpdate
-from helpers.key_finder import api_key
-from helpers.api_call import *
-from helpers.vader import sentiment_scores
-
+from cohos import *
 
 ########### Define a few variables ######
-
-tabtitle = 'Movies'
-sourceurl = 'https://www.kaggle.com/tmdb/tmdb-movie-metadata'
+#https://github.com/cohos-method/603-movie-reviews-sentiment.git
+tabtitle = 'COHOS TODAYS TOP NEWS SENTIMENT ANALYSIS'
+sourceurl = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/TrendingNewsAPI"
 sourceurl2 = 'https://developers.themoviedb.org/3/getting-started/introduction'
-githublink = 'https://github.com/plotly-dash-apps/603-movie-reviews-sentiment'
+githublink = 'https://github.com/cohos-method/603-movie-reviews-sentiment.git'
 
+datajson = ""
+pagesize = 1
+stopwords = ['a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', "aren't", 'as', 'at', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', "can't", 'cannot', 'could', "couldn't", 'did', "didn't", 'do', 'does', "doesn't", 'doing', "don't", 'down', 'during', 'each', 'few', 'for', 'from', 'further', 'had', "hadn't", 'has', "hasn't", 'have', "haven't", 'having', 'he', "he'd", "he'll", "he's", 'her', 'here', "here's", 'hers', 'herself', 'him', 'himself', 'his', 'how', "how's", 'i', "i'd", "i'll", "i'm", "i've", 'if', 'in', 'into', 'is', "isn't", 'it', "it's", 'its', 'itself', "let's", 'me', 'more', 'most', "mustn't", 'my', 'myself', 'no', 'nor', 'not', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'ought', 'our', 'ours', 'ourselves', 'out', 'over', 'own', 'same', "shan't", 'she', "she'd", "she'll", "she's", 'should', "shouldn't", 'so', 'some', 'such', 'than', 'that', "that's", 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', "there's", 'these', 'they', "they'd", "they'll", "they're", "they've", 'this', 'those', 'through', 'to', 'too', 'under', 'until', 'up', 'very', 'was', "wasn't", 'we', "we'd", "we'll", "we're", "we've", 'were', "weren't", 'what', "what's", 'when', "when's", 'where', "where's", 'which', 'while', 'who', "who's", 'whom', 'why', "why's", 'with', "won't", 'would', "wouldn't", 'you', "you'd", "you'll", "you're", "you've", 'your', 'yours', 'yourself', 'yourselves']
 
+fig1 = plotly_wordcloud(tabtitle)
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -25,49 +22,50 @@ app.title=tabtitle
 ########### Layout
 
 app.layout = html.Div(children=[
-    dcc.Store(id='tmdb-store', storage_type='session'),
-    dcc.Store(id='summary-store', storage_type='session'),
+    #dcc.Store(id='tmdb-store', storage_type='session'),
+    #dcc.Store(id='summary-store', storage_type='session'),
     html.Div([
-        html.H1(['Movie Reviews']),
-        html.Div([
+        html.H1(['Cohos Top News Sentiment Analysis'])
+        , html.Div([
             html.Div([
-                html.Div('Randomly select a movie summary'),
-                html.Button(id='eek-button', n_clicks=0, children='API call', style={'color': 'rgb(255, 255, 255)'}),
-                html.Div(id='movie-title', children=[]),
-                html.Div(id='movie-release', children=[]),
-                html.Div(id='movie-overview', children=[]),
+                html.Label("Click the button to start. It will take some time. Click Once.")
+                , html.Button(children='Fetch the news'
+                    , id='submit-val'
+                    , n_clicks=0,
+                    style={'background-color': 'red', 'color': 'white','margin-left': '5px','verticalAlign': 'center','horizontalAlign': 'center'}
+                    )
+                , html.Br()
+            ])
+        # , html.Div([html.Label("Sentiment Analysis Results")
+        #             , html.Div(id='main-data', children="")
+        #             , html.Br()])
+        , html.Div([html.Label("Word Cloud"), dcc.Graph(id='figure1',figure=fig1)])
+        , html.Br()
+        , html.Div([
+                      html.Div([html.Label("Keywords"), html.Div(id='top-keywords', children="")], style={'padding': 10, 'flex': 1})
+                      , html.Div([html.Label("Sentiment Analysis Results"), html.Div(id='main-data', children="")], style={'padding': 10, 'flex': 1})
+                      ]
+                    , style={'display': 'flex', 'flex-direction': 'row'}
+                    )
+        , html.Br()
+        , html.Div([html.Label("Raw Data")
+                    , html.Div(id='raw-data', children="")]
+                    )
+        ])
+        , html.Br(),
 
-            ], style={ 'padding': '12px',
-                    'font-size': '22px',
-                    # 'height': '400px',
-                    'border': 'thick red solid',
-                    'color': 'rgb(255, 255, 255)',
-                    'backgroundColor': '#536869',
-                    'textAlign': 'left',
-                    },
-            className='twelve columns'),
-
-
-            html.H2('Output:'),
-            html.Div(id='output-div-1'),
-
-
-
-        ], className='twelve columns'),
-        html.Br(),
-
-    ], className='twelve columns'),
-
-
+    ]
+    , style={'display': 'flex', 'flex-direction': 'column'}
+    )
         # Output
-    html.Div([
+    , html.Div([
         # Footer
         html.Br(),
         html.A('Code on Github', href=githublink, target="_blank"),
         html.Br(),
-        html.A("Data Source: Kaggle", href=sourceurl, target="_blank"),
+        html.A("Data Source: ", href=sourceurl, target="_blank"),
         html.Br(),
-        html.A("Data Source: TMDB", href=sourceurl2, target="_blank"),
+        #html.A("Data Source:", href=sourceurl2, target="_blank"),
     ], className='twelve columns'),
 
 
@@ -78,32 +76,65 @@ app.layout = html.Div(children=[
 ########## Callbacks
 
 # TMDB API call
-@app.callback(Output('tmdb-store', 'data'),
-              [Input('eek-button', 'n_clicks')],
-              [State('tmdb-store', 'data')])
+@app.callback([Output('main-data', 'children')
+                , Output('top-keywords', 'children')
+                , Output('raw-data', 'children')
+                , Output('figure1', 'figure')
+                ]
+              , [Input(component_id='submit-val', component_property='n_clicks')]
+              , [State('submit-val', 'data')])
 def on_click(n_clicks, data):
     if n_clicks is None:
         raise PreventUpdate
     elif n_clicks==0:
-        data = {'title':' ', 'release_date':' ', 'overview':' '}
+        s = "To be loaded... Click the button to load latest news."
+        mainDataTable = s
+        keywordTable = s
+        rawDataTable = s
+        fig1 = plotly_wordcloud(s)
     elif n_clicks>0:
-        data = api_pull(random.choice(ids_list))
-    return data
+        df = GetDFFromUrl(pagesize)
+        dfwf = reduceByWord(df)
+        jo = readJsonFromFile()
 
-@app.callback([Output('movie-title', 'children'),
-                Output('movie-release', 'children'),
-                Output('movie-overview', 'children'),
-                Output(component_id='output-div-1', component_property='children'),
-                ],
-              [Input('tmdb-store', 'modified_timestamp')],
-              [State('tmdb-store', 'data')])
-def on_data(ts, data):
-    if ts is None:
+        mainDataTable = generate_html_table(df)
+        keywordTable = generate_html_table(dfwf)
+        rawDataTable = prettyPrint(jo)
+        ll = bagOfWords(df)
+        s = " ".join(ll)
+        fig1 = plotly_wordcloud(s)
+    return mainDataTable, keywordTable, rawDataTable, fig1
+
+@app.callback([Output('main-data', 'children')
+                , Output('top-keywords', 'children')
+                , Output('raw-data', 'children')
+                , Output('figure1', 'figure')
+                ]
+              , [Input(component_id='submit-val', component_property='n_clicks')]
+              , [State('submit-val', 'data')])
+def on_data(n_clicks, data):
+    print ("*** Button Clicked:", n_clicks)
+    if n_clicks is None:
         raise PreventUpdate
-    else:
-        sentence = data['overview']
-        message = sentiment_scores(sentence)
-        return data['title'], data['release_date'], data['overview'], message
+    elif n_clicks==0:
+        s = "To be loaded... Click the button to load latest news."
+        mainDataTable = s
+        keywordTable = s
+        rawDataTable = s
+        fig1 = plotly_wordcloud(s)
+    elif n_clicks>0:
+        df = GetDFFromUrl(pagesize)
+        dfwf = reduceByWord(df)
+        jo = readJsonFromFile()
+
+        mainDataTable = generate_html_table(df)
+        keywordTable = generate_html_table(dfwf)
+        rawDataTable = prettyPrint(jo)
+        ll = bagOfWords(df)
+        s = " ".join(ll)
+        fig1 = plotly_wordcloud(s)
+
+    return mainDataTable, keywordTable, rawDataTable, fig1
 
 
 ############ Deploy
