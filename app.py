@@ -4,7 +4,7 @@ from cohos import *
 #https://github.com/cohos-method/603-movie-reviews-sentiment.git
 tabtitle = 'COHOS TODAYS TOP NEWS SENTIMENT ANALYSIS'
 sourceurl = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/TrendingNewsAPI"
-sourceurl2 = 'https://developers.themoviedb.org/3/getting-started/introduction'
+sourceurl2 = 'https://github.com/amueller/word_cloud'
 githublink = 'https://github.com/cohos-method/603-movie-reviews-sentiment.git'
 
 datajson = ""
@@ -42,10 +42,10 @@ app.layout = html.Div(children=[
         , html.Div([html.Label("Word Cloud"), dcc.Graph(id='figure1',figure=fig1)])
         , html.Br()
         , html.Div([
-                      html.Div([html.Label("Keywords"), html.Div(id='top-keywords', children="")], style={'padding': 10, 'flex': 1})
-                      , html.Div([html.Label("Sentiment Analysis Results"), html.Div(id='main-data', children="")], style={'padding': 10, 'flex': 1})
+                      html.Div([html.Label("Keywords"), html.Div(id='top-keywords', children="")], style={'padding': 10, 'flex': 1},className='two columns')
+                      , html.Div([html.Label("Sentiment Analysis Results"), html.Div(id='main-data', children="")], style={'padding': 10, 'flex': 1}, className='ten columns')
                       ]
-                    , style={'display': 'flex', 'flex-direction': 'row'}
+                    , className='twelve columns'#style={'display': 'flex', 'flex-direction': 'row'}
                     )
         , html.Br()
         , html.Div([html.Label("Raw Data")
@@ -55,7 +55,7 @@ app.layout = html.Div(children=[
         , html.Br(),
 
     ]
-    , style={'display': 'flex', 'flex-direction': 'column'}
+    , className='twelve columns'#style={'display': 'flex', 'flex-direction': 'column'}
     )
         # Output
     , html.Div([
@@ -63,9 +63,9 @@ app.layout = html.Div(children=[
         html.Br(),
         html.A('Code on Github', href=githublink, target="_blank"),
         html.Br(),
-        html.A("Data Source: ", href=sourceurl, target="_blank"),
+        html.A("Data Source", href=sourceurl, target="_blank"),
         html.Br(),
-        #html.A("Data Source:", href=sourceurl2, target="_blank"),
+        html.A("WordCloud Source", href=sourceurl2, target="_blank"),
     ], className='twelve columns'),
 
 

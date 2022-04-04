@@ -268,7 +268,7 @@ def plotly_wordcloud(text):
 
     layout = go.Layout({'xaxis': {'showgrid': False, 'showticklabels': False, 'zeroline': False},
                         'yaxis': {'showgrid': False, 'showticklabels': False, 'zeroline': False}},
-                           width=1000,
+                           width=1600,
                            height=600)
 
     fig = go.Figure(data=[trace], layout=layout)
