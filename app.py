@@ -77,37 +77,37 @@ app.layout = html.Div(children=[
 ########## Callbacks
 
 # TMDB API call
-@app.callback([Output('main-data', 'children')
-                , Output('top-keywords', 'children')
-                , Output('raw-data', 'children')
-                , Output('status', 'children')
-                , Output('figure1', 'figure')
-                ]
-              , [Input(component_id='submit-val', component_property='n_clicks')]
-              , [State('submit-val', 'data')])
-def on_click(n_clicks, data):
-    if n_clicks is None:
-        raise PreventUpdate
-    elif n_clicks==0:
-        s = "To be loaded... Click the button to load latest news."
-        mainDataTable = s
-        keywordTable = s
-        rawDataTable = s
-        stat = ""
-        fig1 = plotly_wordcloud(s)
-    elif n_clicks>0:
-        df = GetDFFromUrl(pagesize)
-        dfwf = reduceByWord(df)
-        jo = readJsonFromFile()
-
-        stat = "You clicked " + str(n_clicks) + " so far."
-        mainDataTable = generate_table(df)
-        keywordTable = generate_table(dfwf)
-        rawDataTable = prettyPrint(jo)
-        ll = bagOfWords(df)
-        s = " ".join(ll)
-        fig1 = plotly_wordcloud(s)
-    return mainDataTable, keywordTable, rawDataTable, stat, fig1
+# @app.callback([Output('main-data', 'children')
+#                 , Output('top-keywords', 'children')
+#                 , Output('raw-data', 'children')
+#                 , Output('status', 'children')
+#                 , Output('figure1', 'figure')
+#                 ]
+#               , [Input(component_id='submit-val', component_property='n_clicks')]
+#               , [State('submit-val', 'data')])
+# def on_click(n_clicks, data):
+#     # if n_clicks is None:
+#     #     raise PreventUpdate
+#     # elif n_clicks==0:
+#     #     s = "To be loaded... Click the button to load latest news."
+#     #     mainDataTable = s
+#     #     keywordTable = s
+#     #     rawDataTable = s
+#     #     stat = "You clicked " + str(n_clicks) + " so far."
+#     #     fig1 = plotly_wordcloud(s)
+#     # elif n_clicks>0:
+#     df = GetDFFromUrl(pagesize)
+#     dfwf = reduceByWord(df)
+#     jo = readJsonFromFile()
+#
+#     stat = "You clicked " + str(n_clicks) + " so far."
+#     mainDataTable = generate_table(df)
+#     keywordTable = generate_table(dfwf)
+#     rawDataTable = prettyPrint(jo)
+#     ll = bagOfWords(df)
+#     s = " ".join(ll)
+#     fig1 = plotly_wordcloud(s)
+#     return mainDataTable, keywordTable, rawDataTable, stat, fig1
 
 @app.callback([Output('main-data', 'children')
                 , Output('top-keywords', 'children')
@@ -119,27 +119,27 @@ def on_click(n_clicks, data):
               , [State('submit-val', 'data')])
 def on_data(n_clicks, data):
     print ("*** Button Clicked:", n_clicks)
-    if n_clicks is None:
-        raise PreventUpdate
-    elif n_clicks==0:
-        s = "To be loaded... Click the button to load latest news."
-        mainDataTable = s
-        keywordTable = s
-        rawDataTable = s
-        stat = "You clicked " + str(n_clicks) + " so far."
-        fig1 = plotly_wordcloud(s)
-    elif n_clicks>0:
-        stat = "You clicked " + str(n_clicks) + " so far."
-        df = GetDFFromUrl(pagesize)
-        dfwf = reduceByWord(df)
-        jo = readJsonFromFile()
+    # if n_clicks is None:
+    #     raise PreventUpdate
+    # elif n_clicks==0:
+    #     s = "To be loaded... Click the button to load latest news."
+    #     mainDataTable = s
+    #     keywordTable = s
+    #     rawDataTable = s
+    #     stat = "You clicked " + str(n_clicks) + " so far."
+    #     fig1 = plotly_wordcloud(s)
+    # elif n_clicks>0:
+    stat = "You clicked " + str(n_clicks) + " so far."
+    df = GetDFFromUrl(pagesize)
+    dfwf = reduceByWord(df)
+    jo = readJsonFromFile()
 
-        mainDataTable = generate_table(df)
-        keywordTable = generate_table(dfwf)
-        rawDataTable = prettyPrint(jo)
-        ll = bagOfWords(df)
-        s = " ".join(ll)
-        fig1 = plotly_wordcloud(s)
+    mainDataTable = generate_table(df)
+    keywordTable = generate_table(dfwf)
+    rawDataTable = prettyPrint(jo)
+    ll = bagOfWords(df)
+    s = " ".join(ll)
+    fig1 = plotly_wordcloud(s)
 
     return mainDataTable, keywordTable, rawDataTable, stat, fig1
 
