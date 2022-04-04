@@ -38,14 +38,14 @@ def getJsonFromUrl(pagesize):
         }
 
         response = requests.request("GET", url, headers=headers, params=querystring)
-        print("*** API Call Response: ", response)
+        #print("*** API Call Response: ", response)
         datajson = response.text
 
         datajson = re.sub(r'https?://[A-Za-z0-9./]+', '', datajson)
-        print("*** Data from Response: ", datajson)
+        #print("*** Data from Response: ", datajson)
 
         jsonobj = json.loads(datajson)
-        print("*** JSON from data string: ", type(jsonobj), jsonobj)
+        #print("*** JSON from data string: ", type(jsonobj), jsonobj)
 
         with open("data.json", "w") as write_file:
             json.dump(jsonobj, write_file, indent=4)
@@ -138,10 +138,10 @@ def generate_table(df):
         columns=[{"name": i, "id": i} for i in df.columns],
         data=df.iloc[:30].to_dict('records'),
         sort_action="native",
-        sort_mode='native',
-        row_selectable="multi",
+        sort_mode='multi',
+        row_selectable="single",
         style_table={
-                'maxHeight': '50ex',
+                'maxHeight': '150ex',
                 'overflowY': 'scroll',
                 'width': '100%',
                 'minwidth': '100%',
@@ -149,19 +149,28 @@ def generate_table(df):
             },
         style_header={
             'fontWeight': 'bold',
-            'border': 'thin lightgrey solid',
+            'border': 'thin black solid',
             'backgroundColor': 'rgb(100, 100, 100)',
             'color': 'white'
             },
         style_cell={
             'fontFamily': 'Open Sans',
             'textAlign': 'left',
-            'width': '100px',
+            'width': '50px',
             'minWidth': '10px',
             'maxWidth': '180px',
             'whiteSpace': 'normal',
-            'backgroundColor': 'Rgb(230,230,250)'
-        }
+            'backgroundColor': 'Rgb(255,255,204)'
+         } #,
+        # style_data_conditional=[
+        # {
+        #     'if': {
+        #         'filter_query': '{'+ sentiment.split(":")[0] + '} == "Positive"' ,
+        #         'column_id': 'sentiment'
+        #     },
+        #     'backgroundColor': 'green',
+        #     'color': 'white'
+        # }]
     )
     return table
 
